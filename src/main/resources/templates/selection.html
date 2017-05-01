@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Signup for the raffle</title>
+
+    <style>
+        html, body {
+            height: 100vh;
+            width: 100vw;
+        }
+
+        body {
+            min-height: 100vh;
+        }
+    </style>
+
+    <script type="application/javascript" src="../jquery-3.2.1.js"></script>
+    <script type="application/javascript" src="../jquery.validate.js"></script>
+
+    <link rel="stylesheet" href="../jquery-ui.min.css"/>
+    <script type="application/javascript" src="../jquery-ui.js"></script>
+</head>
+<body style="background-color: #222">
+
+<div><img src="../logo.png"/></div>
+
+<div style="min-height: 200px; margin: 20px 0px 0px 0px; background-color: #ffffff">
+    <p>Signed up people: <span th:text="${count}"/></p>
+    <p>Export: <a href="/export.csv">export.csv</a></p>
+    <p>Raffle: <a href="/raffle">Enter the Matrix</a></p>
+    <table width="600">
+        <tr th:each="record : ${records}">
+            <td><a th:href="'/records/' + ${record.uuid}" th:text="*{record.uuid}"></a></td>
+            <td><span th:text="${record.firstname}"/> <span th:text="${record.lastname}"/></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

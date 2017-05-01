@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <style type="text/css">
+        /*basic reset*/
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*adding a black bg to the body to make things clearer*/
+        body {
+            background: black;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var name = [[${name}]];
+        var email = [[${email}]];
+        var uuid = [[${uuid}]];
+
+        var hitEnter = false;
+
+        window.onload = function () {
+            var c = document.getElementById("c");
+            var ctx = c.getContext("2d");
+
+            //making the canvas full screen
+            c.height = window.innerHeight;
+            c.width = window.innerWidth;
+            c.parentNode.height = window.innerHeight;
+            c.parentNode.width = window.innerWidth;
+
+            //chinese characters - taken from the unicode charset
+            //var chinese = "田由甲申甴电甶男甸甹町画甼甽甾甿畀畁畂畃畄畅畆畇畈畉畊畋界畍畎畏畐畑";
+            var chinese = "ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㅏㅓㅗㅜㅡㅣㄲㅃᄛㅱㅸᅎㆄㆆᇃㅦᇘㅭᅇㆅᇭᅋᅈ";
+            //converting the string into an array of single characters
+            //chinese = chinese.split("");
+
+            var calculation = 15;
+
+            var font_size = 35;
+            var columns = c.width / font_size; //number of columns for the rain
+            //an array of drops - one per column
+            var drops = [];
+            var rounds = [];
+
+            //x below is the x coordinate
+            //1 = y co-ordinate of the drop(same for every drop initially)
+            for (var x = 0; x < columns; x++) {
+                drops[x] = 1;
+                rounds[x] = 0;
+            }
+
+            var middle = Math.ceil(c.height / 2 / font_size);
+            var line = buildLine(name, columns);
+            var line2 = buildLine(uuid, columns);
+            var calculating = buildLine("Calculating...", columns);
+
+            //drawing the characters
+            function draw() {
+                //Black BG for the canvas
+                //translucent BG to show trail
+                ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+                ctx.fillRect(0, 0, c.width, c.height);
+
+                ctx.fillStyle = "#0F0"; //green text
+                ctx.font = font_size + "px arial";
+                //looping over drops
+                for (var i = 0; i < drops.length; i++) {
+                    //a random chinese character to print
+                    var text;
+                    if (middle != drops[i]) {
+                        text = chinese[Math.floor(Math.random() * chinese.length)];
+                    } else {
+                        if (rounds[i] <  calculation) {
+                            text = calculating[i];
+                        } else {
+                            if (!hitEnter && Math.floor(Math.random() * 1000) > 5) {
+                                text = line[i];
+                            } else {
+                                text = line2[i];
+                            }
+                        }
+                    }
+
+                    //x = i*font_size, y = value of drops[i]*font_size
+                    if (middle == drops[i]) {
+                        ctx.font = (font_size + 5) + "px arial";
+                        ctx.fillStyle = "#f00"; //red text
+                    } else {
+                        ctx.font = font_size + "px arial";
+                        ctx.fillStyle = "#0F0"; //green text
+                    }
+                    ctx.fillText(text, i * font_size, drops[i] * font_size);
+
+                    //sending the drop back to the top randomly after it has crossed the screen
+                    //adding a randomness to the reset to make the drops scattered on the Y axis
+                    if (drops[i] * font_size > c.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+
+                    if (drops[i] == Math.ceil(c.height / font_size)) {
+                        rounds[i]++;
+                    }
+
+                    //incrementing Y coordinate
+                    drops[i]++;
+                }
+
+                for (var i = 0; i < drops.length; i++) {
+                    if (rounds[i] >= calculation) {
+                        var text;
+                        if (!hitEnter && Math.floor(Math.random() * 1000) > 5) {
+                            text = line[i];
+                        } else {
+                            text = line2[i];
+                        }
+                        ctx.font = (font_size + 5) + "px arial";
+                        ctx.fillStyle = "#f00"; //red text
+                        ctx.fillText(text, i * font_size, middle * font_size);
+                        ctx.font = font_size + "px arial";
+                        ctx.fillStyle = "#0F0"; //green text
+                    }
+                }
+            }
+
+            window.onkeypress = function (e) {
+                if (e.keyCode == 13) {
+                    hitEnter = true;
+                }
+            };
+            window.focus();
+
+            setInterval(draw, 15);
+        };
+
+        function buildLine(name, columns) {
+            var middle = columns / 2 - name.length / 2;
+            var line = "";
+            for (var i = 0; i < middle; i++) {
+                line += " ";
+            }
+            line += name;
+            for (var i = 0; i < middle; i++) {
+                line += " ";
+            }
+            return line;
+        }
+        /*]]>*/
+    </script>
+</head>
+<body style="background-color: #000000; text-align: center; margin: 0; padding: 0;">
+<div style="left: 0; top: 0;">
+    <canvas id="c"/>
+</div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<title>Signup for the raffle</title>
+
+<style>
+    html, body {
+        height: 100vh;
+        width: 100vw;
+    }
+
+    body {
+        min-height: 100vh;
+    }
+</style>
+
+<script type="application/javascript" src="jquery-3.2.1.js"></script>
+<script type="application/javascript" src="jquery.validate.js"></script>
+
+<link rel="stylesheet" href="jquery-ui.min.css">
+<script type="application/javascript" src="jquery-ui.js"></script>
+
+<script type="application/javascript">
+    $(document).ready(function () {
+        $("#signup").validate({
+            errorPlacement: function(error, element) {
+                var selector = "#lb_" + element.attr("id") + "_error";
+                error.appendTo($(selector));
+            }
+        });
+        $("#signup").find("input textarea").button().css({
+            'font' : 'inherit',
+            'color' : 'inherit',
+            'text-align' : 'left',
+            'outline' : 'none',
+            'cursor' : 'text'
+        });
+        $("#cfirstname").focus();
+    });
+</script>
+</head>
+<body style="background-color: #222">
+
+<div><img src="logo.png"></div>
+
+<div style="margin: 20px 0px 0px 0px; background-color: #ffffff">
+    <form id="signup" action="/signup" method="post" style="width: 600px; border: none;">
+        <fieldset style="border: none">
+            <table>
+                <tr>
+                    <td colspan="2" id="lb_cfirstname_error">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="cfirstname">First Name*</label>
+                    </td>
+                    <td>
+                        <input id="cfirstname" name="firstname" type="text" maxlength="30" style="width: 400px" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="clastname">Last Name*</label>
+                    </td>
+                    <td>
+                        <input id="clastname" name="lastname" type="text" maxlength="30" style="width: 400px" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="company">Company*</label>
+                    </td>
+                    <td>
+                        <input id="company" name="company" type="text" maxlength="50" style="width: 400px" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="ctitle">Jobtitle*</label>
+                    </td>
+                    <td>
+                        <input id="ctitle" name="title" type="text" maxlength="50" style="width: 400px" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="cemail">Email*</label>
+                    </td>
+                    <td>
+                        <input id="cemail" name="email" type="email" maxlength="40" style="width: 400px" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="ccity">City*</label>
+                    </td>
+                    <td>
+                        <input id="ccity" name="city" type="text" maxlength="40" style="width: 400px" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="ccountry">Country*</label>
+                    </td>
+                    <td>
+                        <input id="ccountry" name="country" type="text" maxlength="40" style="width: 400px" required value="India">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="cphonenumber">Phone Number</label>
+                    </td>
+                    <td>
+                        <input id="cphonenumber" name="phonenumber" type="tel" maxlength="40" style="width: 400px"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input class="submit" type="submit" value="Submit"/>
+                    </td>
+                    </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>

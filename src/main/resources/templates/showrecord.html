@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Signup for the raffle</title>
+
+    <style>
+        html, body {
+            height: 100vh;
+            width: 100vw;
+        }
+
+        body {
+            min-height: 100vh;
+        }
+    </style>
+
+    <script type="application/javascript" src="../jquery-3.2.1.js"></script>
+    <script type="application/javascript" src="../jquery.validate.js"></script>
+
+    <link rel="stylesheet" href="../jquery-ui.min.css"/>
+    <script type="application/javascript" src="../jquery-ui.js"></script>
+
+    <script type="application/javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            $("#delete").click(function () {
+                $.ajax({
+                    type: "DELETE",
+                    url: $("#update").attr("action"),
+                    dataType: 'json',
+                    success: function (data) {
+                        window.location.href = "/records";
+                    }
+                });
+            });
+            $("#ccomment").attr("name", "comment");
+            $("#update").validate({
+                errorPlacement: function (error, element) {
+                    var selector = "#lb_" + element.attr("id") + "_error";
+                    error.appendTo($(selector));
+                }
+            });
+            $("#update").find("input textarea button").button().css({
+                'font': 'inherit',
+                'color': 'inherit',
+                'text-align': 'left',
+                'outline': 'none',
+                'cursor': 'text'
+            });
+        });
+        /*]]>*/
+    </script>
+</head>
+<body style="background-color: #222">
+
+<div><img src="../logo.png"/></div>
+
+<div style="margin: 20px 0px 0px 0px; background-color: #ffffff">
+    <form id="update" th:action="'/records/' + ${uuid}" method="post" style="width: 600px; border: none;">
+        <fieldset style="border: none">
+            <table>
+                <tr>
+                    <td colspan="2" id="lb_cuuid_error">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="cuuid">uuid</label>
+                    </td>
+                    <td>
+                        <span id="cuuid" th:text="${uuid}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="lb_cfirstname_error">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="cfirstname">First Name*</label>
+                    </td>
+                    <td>
+                        <input id="cfirstname" name="firstname" type="text" maxlength="30" style="width: 400px" required="true"
+                               th:value="${firstname}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="clastname">Last Name*</label>
+                    </td>
+                    <td>
+                        <input id="clastname" name="lastname" type="text" maxlength="30" style="width: 400px" required="true"
+                               th:value="${lastname}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="company">Company*</label>
+                    </td>
+                    <td>
+                        <input id="company" name="company" type="text" maxlength="50" style="width: 400px" required="true"
+                               th:value="${company}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="ctitle">Title*</label>
+                    </td>
+                    <td>
+                        <input id="ctitle" name="title" type="text" maxlength="50" style="width: 400px" required="true"
+                               th:value="${title}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="cemail">Email*</label>
+                    </td>
+                    <td>
+                        <input id="cemail" name="email" type="email" maxlength="40" style="width: 400px" required="true"
+                               th:value="${email}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="ccity">City*</label>
+                    </td>
+                    <td>
+                        <input id="ccity" name="city" type="text" maxlength="40" style="width: 400px" required="true"
+                               th:value="${city}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="ccountry">Country*</label>
+                    </td>
+                    <td>
+                        <input id="ccountry" name="country" type="text" maxlength="40" style="width: 400px" required="true"
+                               th:value="${country}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="cphonenumber">Phone Number</label>
+                    </td>
+                    <td>
+                        <input id="cphonenumber" name="phonenumber" type="tel" maxlength="40" style="width: 400px"
+                               th:value="${phonenumber}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="ccomment">Comment</label>
+                    </td>
+                    <td>
+                        <textarea id="ccomment" th:text="${comment}" rows="10" style="width: 400px"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="submit" type="submit" value="Submit"/>
+                    </td>
+                    <td style="text-align: right">
+                        <button id="delete" type="button">Delete</button>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>
