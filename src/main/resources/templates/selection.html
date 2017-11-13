@@ -29,10 +29,11 @@
     <p>Signed up people: <span th:text="${count}"/></p>
     <p>Export: <a href="/export.csv">export.csv</a></p>
     <p>Raffle: <a href="/raffle">Enter the Matrix</a></p>
-    <table width="600">
+    <table width="800">
         <tr th:each="record : ${records}">
             <td><a th:href="'/records/' + ${record.uuid}" th:text="*{record.uuid}"></a></td>
             <td><span th:text="${record.firstname}"/> <span th:text="${record.lastname}"/></td>
+            <td><!-- span th:text="${record.company}"/ --></td>
         </tr>
     </table>
 </div>

@@ -45,7 +45,7 @@
 <div><img src="logo.png"></div>
 
 <div style="margin: 20px 0px 0px 0px; background-color: #ffffff">
-    <form id="signup" action="/signup" method="post" style="width: 600px; border: none;">
+    <form id="signup" action="/signup" method="post" style="width: 600px; border: none;" autocomplete="off">
         <fieldset style="border: none">
             <table>
                 <tr>
@@ -57,7 +57,7 @@
                         <label for="cfirstname">First Name*</label>
                     </td>
                     <td>
-                        <input id="cfirstname" name="firstname" type="text" maxlength="30" style="width: 400px" required/>
+                        <input id="cfirstname" name="firstname" type="text" maxlength="30" style="width: 400px" required autocomplete="off"/>
                     </td>
                 </tr>
                 <tr>
@@ -65,7 +65,7 @@
                         <label for="clastname">Last Name*</label>
                     </td>
                     <td>
-                        <input id="clastname" name="lastname" type="text" maxlength="30" style="width: 400px" required/>
+                        <input id="clastname" name="lastname" type="text" maxlength="30" style="width: 400px" required autocomplete="off"/>
                     </td>
                 </tr>
                 <tr>
@@ -73,7 +73,7 @@
                         <label for="company">Company*</label>
                     </td>
                     <td>
-                        <input id="company" name="company" type="text" maxlength="50" style="width: 400px" required/>
+                        <input id="company" name="company" type="text" maxlength="50" style="width: 400px" required autocomplete="off"/>
                     </td>
                 </tr>
                 <tr>
@@ -81,7 +81,15 @@
                         <label for="ctitle">Jobtitle*</label>
                     </td>
                     <td>
-                        <input id="ctitle" name="title" type="text" maxlength="50" style="width: 400px" required/>
+                        <input id="ctitle" name="title" type="text" maxlength="50" style="width: 400px" required autocomplete="off"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100">
+                        <label for="ctitle">Department*</label>
+                    </td>
+                    <td>
+                        <input id="cdepartment" name="department" type="text" maxlength="50" style="width: 400px" required autocomplete="off"/>
                     </td>
                 </tr>
                 <tr>
@@ -89,7 +97,7 @@
                         <label for="cemail">Email*</label>
                     </td>
                     <td>
-                        <input id="cemail" name="email" type="email" maxlength="40" style="width: 400px" required/>
+                        <input id="cemail" name="email" type="email" maxlength="100" style="width: 400px" required autocomplete="off"/>
                     </td>
                 </tr>
                 <tr>
@@ -97,7 +105,7 @@
                         <label for="ccity">City*</label>
                     </td>
                     <td>
-                        <input id="ccity" name="city" type="text" maxlength="40" style="width: 400px" required>
+                        <input id="ccity" name="city" type="text" maxlength="40" style="width: 400px" required autocomplete="off">
                     </td>
                 </tr>
                 <tr>
@@ -105,7 +113,7 @@
                         <label for="ccountry">Country*</label>
                     </td>
                     <td>
-                        <input id="ccountry" name="country" type="text" maxlength="40" style="width: 400px" required value="India">
+                        <input id="ccountry" name="country" type="text" maxlength="40" style="width: 400px" required value="Germany" autocomplete="off">
                     </td>
                 </tr>
                 <tr>
@@ -113,7 +121,7 @@
                         <label for="cphonenumber">Phone Number</label>
                     </td>
                     <td>
-                        <input id="cphonenumber" name="phonenumber" type="tel" maxlength="40" style="width: 400px"/>
+                        <input id="cphonenumber" inputmode="numeric" name="phonenumber" type="tel" maxlength="40" style="width: 400px" autocomplete="off"/>
                     </td>
                 </tr>
                 <tr>
